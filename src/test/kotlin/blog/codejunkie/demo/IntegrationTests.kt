@@ -25,13 +25,25 @@ class IntegrationTests : StringSpec() {
     }
 
     init {
-        "isp controller passes integration" {
+        "codejunkie.blog return the correct details" {
             given {
                 on {
-                    get("/isp") itHas {
+                    get("/isp?=codejunkie.blog") itHas {
                         statusCode(200)
                         body("country", CoreMatchers.equalTo("United States"))
                         body("isp", CoreMatchers.equalTo("GoDaddy.com, LLC"))
+                    }
+                }
+            }
+        }
+
+        "google.com return the correct details" {
+            given {
+                on {
+                    get("/isp?domain=google.com") itHas {
+                        statusCode(200)
+                        body("country", CoreMatchers.equalTo("United States"))
+                        body("isp", CoreMatchers.equalTo("Google"))
                     }
                 }
             }

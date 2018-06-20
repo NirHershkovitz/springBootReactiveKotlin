@@ -15,7 +15,7 @@ class SanityE2ETestsJavaStyle {
     @Test
     fun `isp details service passes sanity - Java`() {
         `when`().
-            get("/isp").
+            get("/isp?domain=codejunkie.blog").
         then().
             statusCode(200)
     }
@@ -24,7 +24,7 @@ class SanityE2ETestsJavaStyle {
 class SanityE2ETestsPlain : StringSpec({
     "isp details service passes sanity - Plain" {
         `when`().
-            get("/isp").
+            get("/isp?domain=codejunkie.blog").
         then().
             statusCode(200)
     }
@@ -34,7 +34,7 @@ class SanityE2ETests : StringSpec({
     "isp details service passes sanity - DSL" {
         given {
             on {
-                get("/isp") itHas {
+                get("/isp?domain=codejunkie.blog") itHas {
                     statusCode(200)
                 }
             }
