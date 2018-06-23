@@ -31,7 +31,7 @@ class SanityE2ETestsPlain : StringSpec({
 })
 
 class SanityE2ETests : StringSpec({
-    "isp details service passes sanity - DSL" {
+    "isp details service passes sanity for a single domain as input" {
         given {
             on {
                 get("/isp?domain=codejunkie.blog") itHas {
@@ -40,7 +40,19 @@ class SanityE2ETests : StringSpec({
             }
         }
     }
+
+    "isp details service passes sanity for multiple domains as input" {
+        given {
+            jsonBody(mapOf("domains" to arrayOf("codejunkie.blog", "google.com")))
+            on {
+                post("/isp") itHas {
+                    statusCode(200)
+                }
+            }
+        }
+    }
 })
+
 
 private fun given(block: RequestSpecification.() -> Unit): RequestSpecification = RestAssured.given().apply(block)
 private fun RequestSpecification.jsonBody(body: Any): RequestSender = this.contentType(ContentType.JSON).body(body)

@@ -28,7 +28,7 @@ class IntegrationTests : StringSpec() {
         "codejunkie.blog return the correct details" {
             given {
                 on {
-                    get("/isp?=codejunkie.blog") itHas {
+                    get("/isp?domain=codejunkie.blog") itHas {
                         statusCode(200)
                         body("country", CoreMatchers.equalTo("United States"))
                         body("isp", CoreMatchers.equalTo("GoDaddy.com, LLC"))
@@ -44,6 +44,22 @@ class IntegrationTests : StringSpec() {
                         statusCode(200)
                         body("country", CoreMatchers.equalTo("United States"))
                         body("isp", CoreMatchers.equalTo("Google"))
+                    }
+                }
+            }
+        }
+
+        "codejunkie.com and google.com return the correct details" {
+            given {
+                jsonBody(mapOf("domains" to arrayOf("codejunkie.blog", "google.com")))
+                on {
+                    post("/isp") itHas {
+                        statusCode(200)
+                        body("[0].country", CoreMatchers.equalTo("United States"))
+                        body("[0].isp", CoreMatchers.equalTo("GoDaddy.com, LLC"))
+                        body("[1].country", CoreMatchers.equalTo("United States"))
+                        body("[1].isp", CoreMatchers.equalTo("Google"))
+
                     }
                 }
             }
