@@ -55,10 +55,10 @@ class IntegrationTests : StringSpec() {
                 on {
                     post("/isp") itHas {
                         statusCode(200)
-                        body("[0].country", CoreMatchers.equalTo("United States"))
-                        body("[0].isp", CoreMatchers.equalTo("GoDaddy.com, LLC"))
-                        body("[1].country", CoreMatchers.equalTo("United States"))
-                        body("[1].isp", CoreMatchers.equalTo("Google"))
+                        body("'codejunkie.blog'.country", CoreMatchers.equalTo("United States"))
+                        body("'codejunkie.blog'.isp", CoreMatchers.equalTo("GoDaddy.com, LLC"))
+                        body("'google.com'.country", CoreMatchers.equalTo("United States"))
+                        body("'google.com'.isp", CoreMatchers.equalTo("Google"))
 
                     }
                 }

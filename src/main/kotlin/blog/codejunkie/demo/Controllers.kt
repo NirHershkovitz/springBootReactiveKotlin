@@ -10,8 +10,10 @@ class IspController(val connector : IpApiConnector) {
     fun ispDetails(@RequestParam() domain: String) = connector.invoke(domain)
 
     @PostMapping("/isp")
-    fun multipleIspsDetails(@RequestBody() multipleDomainsRequest: MultipleDomainsRequest) =
-            Flux.concat(multipleDomainsRequest.domains.map({ connector.invoke(it) }))
+    fun multipleIspsDetails(@RequestBody() request: MultipledomainsRequest) =
+            Flux.
+                    concat(request.domains.map { domain -> connector.invoke(domain).map { isp -> mapOf(domain to isp) } }).
+                    reduce({ a, b -> a.plus(b) })
 
-    data class MultipleDomainsRequest(val domains: List<String>)
+    data class MultipledomainsRequest(val domains: List<String>)
 }
