@@ -61,8 +61,12 @@ dependencies {
 	testImplementation(group: 'io.rest-assured', name: 'rest-assured', version: '3.1.0')
 
 	testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.1.7'
-	testImplementation 'io.kotlintest:kotlintest-extensions-spring:3.1.4'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+
+    testImplementation(group: 'com.github.tomakehurst', name: 'wiremock', version: '2.18.0') {
+        exclude module: "junit"
+    }
+    testImplementation group: 'ru.lanwen.wiremock', name: 'wiremock-junit5', version: '1.2.0'
 }
