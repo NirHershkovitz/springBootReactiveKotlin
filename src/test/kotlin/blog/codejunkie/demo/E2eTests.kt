@@ -8,7 +8,7 @@ import io.restassured.response.Validatable
 import io.restassured.response.ValidatableResponseOptions
 import io.restassured.specification.RequestSender
 import io.restassured.specification.RequestSpecification
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 
 class SanityE2ETestsJavaStyle {
