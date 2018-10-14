@@ -38,7 +38,7 @@ class IntegrationTests {
     @Test
     fun `codejunkieblog return the correct details`() {
         `when`(ipApiConnector.invoke(anyString())).thenReturn(
-                Mono.just(HostingDetails(isp = "GoDaddy.com, LLC", country = "United States")))
+                Mono.just(IpApiResponse(isp = "GoDaddy.com, LLC", country = "United States")))
 
 
         given {
@@ -57,9 +57,9 @@ class IntegrationTests {
     @Test
     fun `codejunkiecom and googlecom return the correct details`() {
         `when`(ipApiConnector.invoke("codejunkie.blog")).
-                thenReturn(Mono.just(HostingDetails(isp = "GoDaddy.com, LLC", country = "United States")))
+                thenReturn(Mono.just(IpApiResponse(isp = "GoDaddy.com, LLC", country = "United States")))
         `when`(ipApiConnector.invoke("google.com")).
-                thenReturn(Mono.just(HostingDetails(isp = "Google", country = "United States")))
+                thenReturn(Mono.just(IpApiResponse(isp = "Google", country = "United States")))
 
         given {
             jsonBody(mapOf("domains" to arrayOf("codejunkie.blog", "google.com")))
